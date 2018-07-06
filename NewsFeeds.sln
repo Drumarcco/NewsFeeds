@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds", "NewsFeeds\NewsFeeds.csproj", "{5D7A147C-E3E9-4458-8D92-A736CC728864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds.Tests", "NewsFeeds.Tests\NewsFeeds.Tests.csproj", "{B9EFD781-5E68-46BC-A25E-13CD1D809D60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2EF45858-DF2E-45B9-A1D6-E33D9F3D0DBC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8CC4D5E-FE11-4C4F-9D14-11B3F2812043}
+	EndGlobalSection
+EndGlobal
