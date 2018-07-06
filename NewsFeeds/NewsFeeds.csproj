@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201807060409249_TopicMigration.Designer.cs">
       <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807060805123_Post.cs" />
+    <Compile Include="Migrations\201807060805123_Post.Designer.cs">
+      <DependentUpon>201807060805123_Post.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -302,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807060409249_TopicMigration.resx">
       <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807060805123_Post.resx">
+      <DependentUpon>201807060805123_Post.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

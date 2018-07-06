@@ -42,6 +42,42 @@ namespace NewsFeeds.Migrations
             context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "dogs", UserId = janedoe.Id });
             context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "music", UserId = janedoe.Id });
 
+            context.Posts.AddOrUpdate(new Models.Post
+            {
+                AuthorId = johndoe.Id,
+                TopicName = "cats",
+                PostedAt = new DateTime(2015, 06, 21),
+                Title = "Cats are awesome!",
+                Content = "TIL cats are very cool, they are silent but mysterious, and they do all sorts of funny things. If it fits it sits, lol."
+            });
+
+            context.Posts.AddOrUpdate(new Models.Post
+            {
+                AuthorId = johndoe.Id,
+                TopicName = "music",
+                PostedAt = new DateTime(2016, 04, 12),
+                Title = "Music is cooler than cats!",
+                Content = "Ermm, a year ago I said cats are cool. Turns out music is way cooler!"
+            });
+
+            context.Posts.AddOrUpdate(new Models.Post
+            {
+                AuthorId = janedoe.Id,
+                TopicName = "dogs",
+                PostedAt = new DateTime(2017, 12, 12),
+                Title = "Dogs, they're cooler than cats",
+                Content = "Dogs are super loyal, they're always playful and are very good for home security. AMAZING!"
+            });
+
+            context.Posts.AddOrUpdate(new Models.Post
+            {
+                AuthorId = user.Id,
+                TopicName = "food",
+                PostedAt = DateTime.Now,
+                Title = "Mexican food",
+                Content = "I've come to the conclusion that Mexican good mexican food consists primarily of corn tortillas, cheese and amazing salsas"
+            });
+
             try
             {
                 context.SaveChanges();
