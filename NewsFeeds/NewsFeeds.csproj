@@ -205,9 +205,15 @@
     <Compile Include="Migrations\201807060259365_InitialMigration.Designer.cs">
       <DependentUpon>201807060259365_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807060409249_TopicMigration.cs" />
+    <Compile Include="Migrations\201807060409249_TopicMigration.Designer.cs">
+      <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,6 +298,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807060259365_InitialMigration.resx">
       <DependentUpon>201807060259365_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807060409249_TopicMigration.resx">
+      <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
