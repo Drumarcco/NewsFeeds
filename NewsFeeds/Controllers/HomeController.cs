@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NewsFeeds.Models;
+using NewsFeeds.ViewModels;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NewsFeeds.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            if (User.Identity.IsAuthenticated)
+            {
+                var topics = _context.Topics.ToList();
+                HomeIndexViewModel vm = new HomeIndexViewModel { Topics = topics };
+                return View(vm);
+            }
 
             return View();
         }
