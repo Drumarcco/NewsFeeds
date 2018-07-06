@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using NewsFeeds.Migrations;
 using System.Data.Entity;
 
 namespace NewsFeeds.Models
@@ -12,6 +13,7 @@ namespace NewsFeeds.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
 
         public static ApplicationDbContext Create()
