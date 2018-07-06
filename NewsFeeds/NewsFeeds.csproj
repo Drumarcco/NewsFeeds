@@ -212,6 +212,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
