@@ -3,14 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds", "NewsFeeds\NewsFeeds.csproj", "{5D7A147C-E3E9-4458-8D92-A736CC728864}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds.Tests", "NewsFeeds.Tests\NewsFeeds.Tests.csproj", "{B9EFD781-5E68-46BC-A25E-13CD1D809D60}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5D7A147C-E3E9-4458-8D92-A736CC728864} = {5D7A147C-E3E9-4458-8D92-A736CC728864}
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03} = {C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2EF45858-DF2E-45B9-A1D6-E33D9F3D0DBC}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds.Data", "NewsFeeds.Data\NewsFeeds.Data.csproj", "{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeeds.Web", "NewsFeeds.Web\NewsFeeds.Web.csproj", "{5D7A147C-E3E9-4458-8D92-A736CC728864}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03} = {C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}
 	EndProjectSection
 EndProject
 Global
@@ -19,14 +28,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9EFD781-5E68-46BC-A25E-13CD1D809D60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A7CAC1-8F71-4651-8D53-D1EE00FF1B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D7A147C-E3E9-4458-8D92-A736CC728864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
