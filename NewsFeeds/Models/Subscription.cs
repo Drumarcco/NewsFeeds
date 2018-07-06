@@ -9,14 +9,12 @@ namespace NewsFeeds.Models
         [Column(Order = 0), Key, ForeignKey("User")]
         public string UserId { get; set; }
 
-        [Required]
         public ApplicationUser User { get; set; }
 
         [Required]
         [Column(Order = 1), Key, ForeignKey("Topic")]
         public string TopicName { get; set; }
 
-        [Required]
         public Topic Topic { get; set; }
     }
 }
