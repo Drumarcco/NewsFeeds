@@ -93,15 +93,21 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config" />
+    <Content Include="App.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NewsFeeds\NewsFeeds.csproj">
-      <Project>{5D7A147C-E3E9-4458-8D92-A736CC728864}</Project>
-      <Name>NewsFeeds</Name>
+    <ProjectReference Include="..\NewsFeeds.Data\NewsFeeds.Data.csproj">
+      <Project>{c7a7cac1-8f71-4651-8d53-d1ee00ff1b03}</Project>
+      <Name>NewsFeeds.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsFeeds.Web\NewsFeeds.Web.csproj">
+      <Project>{5d7a147c-e3e9-4458-8d92-a736cc728864}</Project>
+      <Name>NewsFeeds.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
