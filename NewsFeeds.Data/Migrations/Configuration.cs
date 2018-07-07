@@ -1,45 +1,48 @@
-namespace NewsFeeds.Web.Migrations
+namespace NewsFeeds.Data.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using NewsFeeds.Web.Models;
+    using NewsFeeds.Entities.ApplicationUser;
+    using NewsFeeds.Entities.Post;
+    using NewsFeeds.Entities.Subscription;
+    using NewsFeeds.Entities.Topic;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Context.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(Context.ApplicationDbContext context)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            context.Topics.AddOrUpdate(new Topic { Name = "dogs" });
-            context.Topics.AddOrUpdate(new Topic { Name = "cats" });
-            context.Topics.AddOrUpdate(new Topic { Name = "music" });
-            context.Topics.AddOrUpdate(new Topic { Name = "food" });
+            var userManager = new UserManager<ApplicationUserModel>(new UserStore<ApplicationUserModel>(context));
+            context.Topics.AddOrUpdate(new TopicModel { Name = "dogs" });
+            context.Topics.AddOrUpdate(new TopicModel { Name = "cats" });
+            context.Topics.AddOrUpdate(new TopicModel { Name = "music" });
+            context.Topics.AddOrUpdate(new TopicModel { Name = "food" });
 
-            userManager.Create(new ApplicationUser { UserName = "defaultuser@mail.com", Email = "defaultuser@mail.com" }, "defaultuser");
-            userManager.Create(new ApplicationUser { UserName = "johndoe@mail.com", Email = "johndoe@mail.com" }, "johndoe");
-            userManager.Create(new ApplicationUser { UserName = "janedoe@mail.com", Email = "janedoe@mail.com" }, "janedoe");
+            userManager.Create(new ApplicationUserModel { UserName = "defaultuser@mail.com", Email = "defaultuser@mail.com" }, "defaultuser");
+            userManager.Create(new ApplicationUserModel { UserName = "johndoe@mail.com", Email = "johndoe@mail.com" }, "johndoe");
+            userManager.Create(new ApplicationUserModel { UserName = "janedoe@mail.com", Email = "janedoe@mail.com" }, "janedoe");
 
             var user = userManager.FindByName("defaultuser@mail.com");
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "dogs", UserId = user.Id });
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "food", UserId = user.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "dogs", UserId = user.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "food", UserId = user.Id });
 
             var johndoe = userManager.FindByName("johndoe@mail.com");
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "cats", UserId = johndoe.Id });
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "music", UserId = johndoe.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "cats", UserId = johndoe.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "music", UserId = johndoe.Id });
 
             var janedoe = userManager.FindByName("janedoe@mail.com");
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "dogs", UserId = janedoe.Id });
-            context.Subscriptions.AddOrUpdate(new Subscription { TopicName = "music", UserId = janedoe.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "dogs", UserId = janedoe.Id });
+            context.Subscriptions.AddOrUpdate(new SubscriptionModel { TopicName = "music", UserId = janedoe.Id });
 
-            context.Posts.AddOrUpdate(new Models.Post
+            context.Posts.AddOrUpdate(new PostModel
             {
                 AuthorId = johndoe.Id,
                 TopicName = "cats",
@@ -48,7 +51,7 @@ namespace NewsFeeds.Web.Migrations
                 Content = "TIL cats are very cool, they are silent but mysterious, and they do all sorts of funny things. If it fits it sits, lol."
             });
 
-            context.Posts.AddOrUpdate(new Models.Post
+            context.Posts.AddOrUpdate(new PostModel
             {
                 AuthorId = johndoe.Id,
                 TopicName = "music",
@@ -57,7 +60,7 @@ namespace NewsFeeds.Web.Migrations
                 Content = "Ermm, a year ago I said cats are cool. Turns out music is way cooler!"
             });
 
-            context.Posts.AddOrUpdate(new Models.Post
+            context.Posts.AddOrUpdate(new PostModel
             {
                 AuthorId = janedoe.Id,
                 TopicName = "dogs",
@@ -66,7 +69,7 @@ namespace NewsFeeds.Web.Migrations
                 Content = "Dogs are super loyal, they're always playful and are very good for home security. AMAZING!"
             });
 
-            context.Posts.AddOrUpdate(new Models.Post
+            context.Posts.AddOrUpdate(new PostModel
             {
                 AuthorId = user.Id,
                 TopicName = "food",
@@ -93,5 +96,5 @@ namespace NewsFeeds.Web.Migrations
             }
         }
     }
-
 }
+

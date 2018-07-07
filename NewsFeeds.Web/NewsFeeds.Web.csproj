@@ -201,24 +201,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807060259365_InitialMigration.cs" />
-    <Compile Include="Migrations\201807060259365_InitialMigration.Designer.cs">
-      <DependentUpon>201807060259365_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807060409249_TopicMigration.cs" />
-    <Compile Include="Migrations\201807060409249_TopicMigration.Designer.cs">
-      <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807060805123_Post.cs" />
-    <Compile Include="Migrations\201807060805123_Post.Designer.cs">
-      <DependentUpon>201807060805123_Post.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\Subscription.cs" />
-    <Compile Include="Models\Topic.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -301,15 +283,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807060259365_InitialMigration.resx">
-      <DependentUpon>201807060259365_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807060409249_TopicMigration.resx">
-      <DependentUpon>201807060409249_TopicMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807060805123_Post.resx">
-      <DependentUpon>201807060805123_Post.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\NewsFeeds.Data\NewsFeeds.Data.csproj">
+      <Project>{c7a7cac1-8f71-4651-8d53-d1ee00ff1b03}</Project>
+      <Name>NewsFeeds.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsFeeds.Entities\NewsFeeds.Entities.csproj">
+      <Project>{482fe854-fe2a-45fd-9480-fa1406b5e331}</Project>
+      <Name>NewsFeeds.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

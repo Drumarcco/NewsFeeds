@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NewsFeeds.Web.Models
+namespace NewsFeeds.Entities.Topic
 {
-    public class Topic
+    [Table("Topics")]
+    public class TopicModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

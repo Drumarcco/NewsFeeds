@@ -1,5 +1,5 @@
 ﻿using Microsoft.Owin;
-using NewsFeeds.Web.Models;
+using NewsFeeds.Data.Context;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(NewsFeeds.Web.Startup))]

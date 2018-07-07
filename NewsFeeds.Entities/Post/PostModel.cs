@@ -1,10 +1,13 @@
-﻿using System;
+﻿using NewsFeeds.Entities.ApplicationUser;
+using NewsFeeds.Entities.Topic;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NewsFeeds.Web.Models
+namespace NewsFeeds.Entities.Post
 {
-    public class Post
+    [Table("Posts")]
+    public class PostModel
     {
         public int Id { get; set; }
 
@@ -22,12 +25,12 @@ namespace NewsFeeds.Web.Models
         [ForeignKey("Author")]
         public string AuthorId { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public ApplicationUserModel Author { get; set; }
 
         [Required]
         [ForeignKey("Topic")]
         public string TopicName { get; set; }
 
-        public Topic Topic { get; set; }
+        public TopicModel Topic { get; set; }
     }
 }
