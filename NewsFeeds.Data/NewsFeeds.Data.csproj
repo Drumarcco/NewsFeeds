@@ -90,6 +90,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Topic\ITopicsRepository.cs" />
+    <Compile Include="Topic\TopicsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
