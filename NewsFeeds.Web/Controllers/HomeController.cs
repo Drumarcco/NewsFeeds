@@ -7,6 +7,7 @@ namespace NewsFeeds.Web.Controllers
     {
         ITopicsRepository _topicsRepository;
 
+
         public HomeController(ITopicsRepository topicsRepository)
         {
             _topicsRepository = topicsRepository;
@@ -15,7 +16,14 @@ namespace NewsFeeds.Web.Controllers
         public ActionResult Index()
         {
             var topics = _topicsRepository.GetTopics();
-            return View(topics);
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "NewsFeed");
+            }
+            else
+            {
+                return View(topics);
+            }
         }
     }
 }

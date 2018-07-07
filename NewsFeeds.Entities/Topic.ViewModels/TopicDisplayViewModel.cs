@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         public int SubscribersCount { get; set; }
-        public int TopicsCount { get; set; }
+        public int PostsCount { get; set; }
     }
 }

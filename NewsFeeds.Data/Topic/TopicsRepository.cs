@@ -2,6 +2,7 @@
 using NewsFeeds.Entities.Topic;
 using NewsFeeds.Entities.Topic.ViewModels;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace NewsFeeds.Data.Topic
@@ -13,7 +14,10 @@ namespace NewsFeeds.Data.Topic
             using (var context = new ApplicationDbContext())
             {
                 List<TopicModel> topics = new List<TopicModel>();
-                topics = context.Topics.ToList();
+                topics = context.Topics
+                    .Include(t => t.Subscriptions)
+                    .Include(t => t.Posts)
+                    .ToList();
 
                 if (topics != null)
                 {
@@ -23,7 +27,9 @@ namespace NewsFeeds.Data.Topic
                     {
                         var topicDisplay = new TopicDisplayViewModel
                         {
-                            Name = topic.Name
+                            Name = topic.Name,
+                            SubscribersCount = topic.Subscriptions.Count,
+                            PostsCount = topic.Posts.Count
                         };
                         topicsDisplay.Add(topicDisplay);
                     }

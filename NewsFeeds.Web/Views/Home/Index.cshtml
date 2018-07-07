@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Welcome";
 }
-@model List<NewsFeeds.Entities.Topic.ViewModels.TopicDisplayViewModel>
 
+@model List<NewsFeeds.Entities.Topic.ViewModels.TopicDisplayViewModel>
 <div class="jumbotron">
     <h1>NewsFeeds</h1>
     <h2>See what's going on</h2>
@@ -11,10 +11,5 @@
 <div>
     <h3>Topics</h3>
     <hr />
-    <div>
-        @foreach (var topic in Model)
-        {
-            <div>@topic.Name</div>
-        }
-    </div>
+    @Topic.TopicHome(Model, @Url)
 </div>
