@@ -19,9 +19,27 @@
                     @vm.Name
                 </div>
                 <div class="actions">
-                    <a class="btn btn-primary btn-xs" href="@url.Action("Login", "Account")">
-                        Subscribe
-                    </a>
+                    @if (vm is UserTopicViewModel)
+                    {
+                        if (((UserTopicViewModel)vm).IsSubscribed)
+                        {
+                            <button data-is-subscribed="true" data-topic-name="@vm.Name" class="btn btn-default btn-xs">
+                                Unsubscribe
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-is-subscribed="false" data-topic-name="@vm.Name" class="btn btn-primary btn-xs">
+                                Subscribe
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-xs" href="@url.Action("Login", "Account")">
+                            Subscribe
+                        </a>
+                    }
                 </div>
             </div>
             <div class="meta">

@@ -35,5 +35,10 @@ namespace NewsFeeds.Data.Tests.Topic
 
             return topicsDisplays;
         }
+
+        public List<UserTopicViewModel> GetTopicsWithUserContext(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

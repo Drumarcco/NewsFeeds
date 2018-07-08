@@ -6,5 +6,6 @@ namespace NewsFeeds.Data.Topic
     public interface ITopicsRepository
     {
         List<TopicDisplayViewModel> GetTopics();
+        List<UserTopicViewModel> GetTopicsWithUserContext(string userId);
     }
 }

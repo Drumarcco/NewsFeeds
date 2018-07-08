@@ -40,5 +40,40 @@ namespace NewsFeeds.Data.Topic
                 return null;
             }
         }
+
+        public List<UserTopicViewModel> GetTopicsWithUserContext(string userId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var topics = new List<TopicModel>();
+
+                topics = context.Topics
+                    .Include(t => t.Subscriptions)
+                    .Include(t => t.Posts)
+                    .ToList();
+
+                if (topics != null)
+                {
+                    List<UserTopicViewModel> userTopics = new List<UserTopicViewModel>();
+
+                    foreach (var topic in topics)
+                    {
+                        var userTopic = new UserTopicViewModel
+                        {
+                            Name = topic.Name,
+                            PostsCount = topic.Posts.Count,
+                            SubscribersCount = topic.Subscriptions.Count,
+                            IsSubscribed = topic.Subscriptions.Any(s => s.UserId == userId)
+                        };
+
+                        userTopics.Add(userTopic);
+                    }
+
+                    return userTopics;
+                }
+
+                return null;
+            }
+        }
     }
 }
