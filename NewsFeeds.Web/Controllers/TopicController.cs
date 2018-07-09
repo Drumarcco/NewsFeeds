@@ -83,7 +83,12 @@ namespace NewsFeeds.Web.Controllers
             }
 
 
-            return View(TopicMapper.Map(topic));
+            return View(TopicMapper.Map(new Entities.Topic.TopicModel
+            {
+                Posts = uow.PostRepository.Get(postsFilter).Where(p => p.TopicName == name).ToList(),
+                Name = name,
+                Subscriptions = topic.Subscriptions
+            }));
         }
 
 
