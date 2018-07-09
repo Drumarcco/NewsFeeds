@@ -2,6 +2,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Practices.Unity;
 using NewsFeeds.Data.Context;
+using NewsFeeds.Data.Post;
+using NewsFeeds.Data.Subscription;
 using NewsFeeds.Data.Topic;
 using NewsFeeds.Entities.ApplicationUser;
 using NewsFeeds.Web.Controllers;
@@ -38,11 +40,14 @@ namespace NewsFeeds.Web
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<ITopicsRepository, TopicsRepository>();
+            container.RegisterType<IPostsRepository, PostsRepository>();
+            container.RegisterType<ISubscriptionsRepository, SubscriptionsRepository>();
             container.RegisterType<IUserStore<ApplicationUserModel>, UserStore<ApplicationUserModel>>();
             container.RegisterType<UserManager<ApplicationUserModel>>();
             container.RegisterType<DbContext, ApplicationDbContext>();
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
         }
     }
 }

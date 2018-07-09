@@ -101,9 +101,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NewsFeeds.Data.Tests\NewsFeeds.Data.Tests.csproj">
+      <Project>{2de0ad2d-b8a1-4146-9908-e039ea83761e}</Project>
+      <Name>NewsFeeds.Data.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NewsFeeds.Data\NewsFeeds.Data.csproj">
       <Project>{c7a7cac1-8f71-4651-8d53-d1ee00ff1b03}</Project>
       <Name>NewsFeeds.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsFeeds.Entities\NewsFeeds.Entities.csproj">
+      <Project>{482FE854-FE2A-45FD-9480-FA1406B5E331}</Project>
+      <Name>NewsFeeds.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\NewsFeeds.Web\NewsFeeds.Web.csproj">
       <Project>{5d7a147c-e3e9-4458-8d92-a736cc728864}</Project>

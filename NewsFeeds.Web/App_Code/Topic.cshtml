@@ -1,0 +1,71 @@
+﻿@using NewsFeeds.Entities.Topic.ViewModels;
+@using System.Web.Mvc
+
+@helper TopicHome(List<TopicDisplayViewModel> vm, UrlHelper url) { 
+    <div class="row">
+        @foreach (var topic in  vm) {
+            @SingleTopic(topic, url)
+        }
+    </div>
+}
+
+@helper SingleTopic(TopicDisplayViewModel vm, UrlHelper url) { 
+    <div class="col-sm-3">
+        <div class="topic">
+            <div class="header">
+                <div class="title">
+                    <a href="@url.Action("Details", "Topic", new { name = vm.Name })">
+                        @vm.Name
+                    </a>
+                </div>
+                <div class="actions">
+                    @if (vm is UserTopicViewModel)
+                    {
+                        if (((UserTopicViewModel)vm).IsSubscribed)
+                        {
+                            <button data-is-subscribed="true" data-topic-name="@vm.Name" class="btn btn-default btn-xs">
+                                Unsubscribe
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-is-subscribed="false" data-topic-name="@vm.Name" class="btn btn-primary btn-xs">
+                                Subscribe
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-xs" href="@url.Action("Login", "Account")">
+                            Subscribe
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="meta">
+                <span class="subscriptions">
+                    @vm.SubscriptionsCount
+                    @if (vm.SubscriptionsCount > 1 || vm.SubscriptionsCount == 0)
+                    {
+                        <span>Subscribers</span>
+                    }
+                    else
+                    {
+                        <span>Subscriber</span>
+                    }
+                </span>
+                <span class="posts">
+                    @vm.Posts.Count
+                    @if (vm.Posts.Count > 1 || vm.Posts.Count == 0)
+                    {
+                        <span>Posts</span>
+                    }
+                    else
+                    {
+                        <span>Post</span>
+                    }
+                </span>
+            </div>
+        </div>
+    </div>
+}

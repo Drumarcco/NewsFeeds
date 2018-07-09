@@ -1,0 +1,126 @@
+﻿@{ 
+    ViewBag.Title = "Topics";
+}
+@model List<NewsFeeds.Entities.Topic.ViewModels.UserTopicViewModel>
+
+<div>
+    <h2>Discover Topics</h2>
+    <hr />
+    @if (!Model.Any(t => !t.IsSubscribed))
+    {
+        <p class="text-center">No topics to subscribe</p>
+    }
+
+    @if (Model.Any(t => !t.IsSubscribed))
+    {
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var topic in Model)
+                {
+                    if (!topic.IsSubscribed)
+                    {
+                        @Topic.SingleTopic(topic, @Url)
+                    }
+                }
+            </div>
+        </div>
+    }
+
+</div>
+
+<div>
+    <h2>Following</h2>
+    <hr />
+    @if (!Model.Any(t => t.IsSubscribed))
+    {
+        <p class="text-center">Come on, subscribe to a topic!</p>
+    }
+
+    @if (Model.Any(t => t.IsSubscribed))
+    {
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var topic in Model)
+                {
+                    if (topic.IsSubscribed)
+                    {
+                        @Topic.SingleTopic(topic, @Url)
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bindEvents();
+        });
+
+        function bindEvents() {
+            $('.btn[data-is-subscribed="true"]').click(handleUnsubscribeClick);
+            $('.btn[data-is-subscribed="false"').click(handleSubscribeClick);
+        }
+
+        function handleSubscribeClick(event) {
+            event.preventDefault();
+            var topicName = $(event.currentTarget).data('topic-name');
+            subscribe(topicName)
+                .then(function () {
+                    var button = $(event.currentTarget);
+                    button.text('Unsubscribe');
+                    button.prop('data-is-subscribed', true);
+                    button.addClass('btn-default');
+                    button.removeClass('btn-primary');
+                    button.unbind('click');
+                    button.bind('click', handleUnsubscribeClick)
+                });
+        }
+
+        function handleUnsubscribeClick(event) {
+            event.preventDefault();
+            var topicName = $(event.currentTarget).data('topic-name');
+            unsubscribe(topicName)
+                .then(function () {
+                    var button = $(event.currentTarget);
+                    button.text('Subscribe')
+                    button.prop('data-is-subscribed', false);
+                    button.addClass('btn-primary')
+                    button.removeClass('btn-default');
+                    button.unbind('click');
+                    button.bind('click', handleSubscribeClick)
+                });
+        }
+
+        function subscribe(topicName) {
+            if (typeof topicName !== 'string') {
+                return Promise.reject('Bad parameters');
+            }
+
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("Index", "Topic")/' + topicName + '/subscription',
+                    success: resolve,
+                    error: reject
+                })
+            });
+        }
+
+        function unsubscribe(topicName) {
+            if (typeof topicName !== 'string') {
+                return Promise.reject('Bad parameters');
+            }
+
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '@Url.Action("Index", "Topic")/' + topicName + '/subscription',
+                    success: resolve,
+                    error: reject
+                })
+            });
+        }
+    </script>
+}
