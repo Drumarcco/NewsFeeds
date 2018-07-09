@@ -6,12 +6,12 @@
 <div>
     <h2>Discover Topics</h2>
     <hr />
-    @if (Model.Count == 0)
+    @if (!Model.Any(t => !t.IsSubscribed))
     {
-        <p>No topics to subscribe</p>
+        <p class="text-center">No topics to subscribe</p>
     }
 
-    @if (Model.Count > 0)
+    @if (Model.Any(t => !t.IsSubscribed))
     {
         <div class="container-fluid">
             <div class="row">
@@ -31,12 +31,12 @@
 <div>
     <h2>Following</h2>
     <hr />
-    @if (Model.Count == 0)
+    @if (!Model.Any(t => t.IsSubscribed))
     {
-        <p>Come on, subscribe to a topic!</p>
+        <p class="text-center">Come on, subscribe to a topic!</p>
     }
 
-    @if (Model.Count > 0)
+    @if (Model.Any(t => t.IsSubscribed))
     {
         <div class="container-fluid">
             <div class="row">
@@ -59,30 +59,38 @@
         });
 
         function bindEvents() {
-            $('.btn[data-is-subscribed="true"]').click(function (event) {
-                event.preventDefault();
-                var topicName = $(event.currentTarget).data('topic-name');
-                unsubscribe(topicName)
-                    .then(function () {
-                        console.log("success")
-                    })
-                    .catch(function () {
-                        console.log("failure")
-                    })
-          
-            });
+            $('.btn[data-is-subscribed="true"]').click(handleUnsubscribeClick);
+            $('.btn[data-is-subscribed="false"').click(handleSubscribeClick);
+        }
 
-            $('.btn[data-is-subscribed="false"').click(function (event) {
-                event.preventDefault();
-                var topicName = $(event.currentTarget).data('topic-name');
-                subscribe(topicName)
-                    .then(function () {
-                        console.log("success")
-                    })
-                    .catch(function () {
-                        console.log("failure")
-                    });
-            });
+        function handleSubscribeClick(event) {
+            event.preventDefault();
+            var topicName = $(event.currentTarget).data('topic-name');
+            subscribe(topicName)
+                .then(function () {
+                    var button = $(event.currentTarget);
+                    button.text('Unsubscribe');
+                    button.prop('data-is-subscribed', true);
+                    button.addClass('btn-default');
+                    button.removeClass('btn-primary');
+                    button.unbind('click');
+                    button.bind('click', handleUnsubscribeClick)
+                });
+        }
+
+        function handleUnsubscribeClick(event) {
+            event.preventDefault();
+            var topicName = $(event.currentTarget).data('topic-name');
+            unsubscribe(topicName)
+                .then(function () {
+                    var button = $(event.currentTarget);
+                    button.text('Subscribe')
+                    button.prop('data-is-subscribed', false);
+                    button.addClass('btn-primary')
+                    button.removeClass('btn-default');
+                    button.unbind('click');
+                    button.bind('click', handleSubscribeClick)
+                });
         }
 
         function subscribe(topicName) {

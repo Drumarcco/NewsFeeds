@@ -19,7 +19,7 @@ namespace NewsFeeds.Data.Subscription
                     return;
                 }
 
-                var topic = context.Topics.Where(t => t.Name == topicName).First();
+                var topic = context.Topics.Where(t => t.Name == topicName).FirstOrDefault();
                 var user = context.Users.Where(u => u.Id == userId);
 
 
@@ -47,14 +47,14 @@ namespace NewsFeeds.Data.Subscription
         {
             using (var context = new ApplicationDbContext())
             {
-                var subscription = context.Subscriptions.First(s => s.TopicName == topicName && s.UserId == userId);
+                var subscription = context.Subscriptions.FirstOrDefault(s => s.TopicName == topicName && s.UserId == userId);
 
                 if (subscription == null)
                 {
                     throw new SubscriptionNotFoundException(userId, topicName);
                 }
 
-                context.Subscriptions.Remove(subscription);
+                context.Entry(subscription).State = System.Data.Entity.EntityState.Deleted;
                 context.SaveChanges();
             }
         }
