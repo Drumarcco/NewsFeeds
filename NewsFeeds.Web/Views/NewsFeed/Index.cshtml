@@ -5,9 +5,16 @@
 <div>
     <h2>What's New</h2>
     <hr />
-    <div class="container-fluid">
-        <div class="row">   
-            @Post.PostList(Model)
+    @if (Model.Count == 0)
+    {
+        <h3 class="text-center">Nothing here yet, <a href="@Url.Action("Index", "Topic")">subscribe to topics</a></h3>
+    }
+    else
+    {
+        <div class="container-fluid">
+            <div class="row">
+                @Post.PostList(Model)
+            </div>
         </div>
-    </div>
+    }
 </div>
