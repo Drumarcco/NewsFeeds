@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace NewsFeeds.Data.Generic
 {
-    public class Repository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal ApplicationDbContext context;
         internal DbSet<TEntity> dbSet;
@@ -18,7 +18,7 @@ namespace NewsFeeds.Data.Generic
             dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -46,7 +46,7 @@ namespace NewsFeeds.Data.Generic
             }
         }
 
-        public virtual TEntity GetByID(object id)
+        public TEntity GetByID(object id)
         {
             return dbSet.Find(id);
         }

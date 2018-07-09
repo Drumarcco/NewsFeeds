@@ -1,15 +1,18 @@
 ﻿@using NewsFeeds.Entities.Topic.ViewModels;
 @using System.Web.Mvc
 
-@helper TopicHome(List<TopicDisplayViewModel> vm, UrlHelper url) { 
+@helper TopicHome(List<TopicDisplayViewModel> vm, UrlHelper url)
+{
     <div class="row">
-        @foreach (var topic in  vm) {
+        @foreach (var topic in vm)
+        {
             @SingleTopic(topic, url)
         }
     </div>
 }
 
-@helper SingleTopic(TopicDisplayViewModel vm, UrlHelper url) { 
+@helper SingleTopic(TopicDisplayViewModel vm, UrlHelper url)
+{
     <div class="col-sm-3">
         <div class="topic">
             <div class="header">
@@ -19,27 +22,7 @@
                     </a>
                 </div>
                 <div class="actions">
-                    @if (vm is UserTopicViewModel)
-                    {
-                        if (((UserTopicViewModel)vm).IsSubscribed)
-                        {
-                            <button data-is-subscribed="true" data-topic-name="@vm.Name" class="btn btn-default btn-xs">
-                                Unsubscribe
-                            </button>
-                        }
-                        else
-                        {
-                            <button data-is-subscribed="false" data-topic-name="@vm.Name" class="btn btn-primary btn-xs">
-                                Subscribe
-                            </button>
-                        }
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary btn-xs" href="@url.Action("Login", "Account")">
-                            Subscribe
-                        </a>
-                    }
+                    @SubscriptionButtons(vm, url)
                 </div>
             </div>
             <div class="meta">
@@ -68,4 +51,29 @@
             </div>
         </div>
     </div>
+}
+
+@helper SubscriptionButtons(TopicDisplayViewModel vm, UrlHelper url)
+{
+    if (vm is UserTopicViewModel)
+    {
+        if (((UserTopicViewModel)vm).IsSubscribed)
+        {
+            <button data-is-subscribed="true" data-topic-name="@vm.Name" class="btn btn-default btn-xs">
+                Unsubscribe
+            </button>
+        }
+        else
+        {
+            <button data-is-subscribed="false" data-topic-name="@vm.Name" class="btn btn-primary btn-xs">
+                Subscribe
+            </button>
+        }
+    }
+    else
+    {
+        <a class="btn btn-primary btn-xs" href="@url.Action("Login", "Account")">
+            Subscribe
+        </a>
+    }
 }

@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Context\ApplicationDbContext.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Generic\IRepository.cs" />
     <Compile Include="Generic\IUnitOfWork.cs" />
     <Compile Include="Generic\Repository.cs" />
     <Compile Include="Generic\UnitOfWork.cs" />

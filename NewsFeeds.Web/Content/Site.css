@@ -23,16 +23,22 @@ textarea {
     max-width: 280px;
 }
 
+/* Bootstrap Overrides */
+body {
+    background-color: #EEE;
+}
+
 /* TOPICS */
 .topic {
     border: 1px solid #DDD;
     padding: 10px;
     border-radius: 3px;
     margin-bottom: 14px;
+    background-color: #FFF;
 }
 
 .topic:hover {
-    background-color: #EEE;
+    box-shadow: 0 0 5px lightgray;
 }
 
 .topic .title {
@@ -55,12 +61,21 @@ textarea {
     color: #aaa;
 }
 
-.search-bar {
+.topic-details-header {
     margin-top: 20px;
 }
 
-.search-bar input[type="text"] {
+.topic-details-header h2 {
+    margin-top: 0;
+}
+
+.topic-details-header input[type="text"] {
     max-width: none;
+}
+
+.topic-details-header .topic-details-actions .btn {
+    margin-left: 10px;
+    margin-top: -10px;
 }
 
 /* POSTS */
@@ -69,6 +84,11 @@ textarea {
     padding: 10px;
     border-radius: 3px;
     margin-bottom: 14px;
+    background-color: #FFF;
+}
+
+.post:hover {
+    box-shadow: 0 0 5px lightgray;
 }
 
 .post .header {

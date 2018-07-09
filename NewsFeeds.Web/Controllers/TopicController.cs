@@ -4,6 +4,7 @@ using NewsFeeds.Data.Generic;
 using NewsFeeds.Data.Topic;
 using NewsFeeds.Entities.Post;
 using NewsFeeds.Entities.Topic.ViewModels;
+using NewsFeeds.Web.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace NewsFeeds.Web.Controllers
     public class TopicController : Controller
     {
         private IUnitOfWork uow;
+        private ICurrentUser currentUser;
 
-        public TopicController(IUnitOfWork uow)
+        public TopicController(IUnitOfWork uow, ICurrentUser currentUser)
         {
             this.uow = uow;
+            this.currentUser = currentUser;
         }
 
         // GET: Topic
@@ -68,7 +71,7 @@ namespace NewsFeeds.Web.Controllers
                 || p.Author.UserName.ToLower().Contains(query)
                 || p.TopicName.ToLower().Contains(query));
 
-            if (Request.IsAuthenticated)
+            if (currentUser.IsLoggedIn())
             {
                 var userId = User.Identity.GetUserId();
                 var user = uow.UserRepository.GetByID(userId);

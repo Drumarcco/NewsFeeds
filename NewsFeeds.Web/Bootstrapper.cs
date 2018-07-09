@@ -5,6 +5,7 @@ using NewsFeeds.Data.Context;
 using NewsFeeds.Data.Generic;
 using NewsFeeds.Entities.ApplicationUser;
 using NewsFeeds.Web.Controllers;
+using NewsFeeds.Web.Util;
 using System.Data.Entity;
 using System.Web.Mvc;
 using Unity.Mvc4;
@@ -38,6 +39,7 @@ namespace NewsFeeds.Web
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<ICurrentUser, CurrentUser>();
             container.RegisterType<IUserStore<ApplicationUserModel>, UserStore<ApplicationUserModel>>();
             container.RegisterType<UserManager<ApplicationUserModel>>();
             container.RegisterType<DbContext, ApplicationDbContext>();

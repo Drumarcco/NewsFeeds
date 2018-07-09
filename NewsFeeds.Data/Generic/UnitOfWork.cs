@@ -10,12 +10,12 @@ namespace NewsFeeds.Data.Generic
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private ApplicationDbContext context = new ApplicationDbContext();
-        private Repository<TopicModel> topicRepository;
-        private Repository<SubscriptionModel> subscriptionRepository;
-        private Repository<PostModel> postRepository;
-        private Repository<ApplicationUserModel> userRepository;
+        private IRepository<TopicModel> topicRepository;
+        private IRepository<SubscriptionModel> subscriptionRepository;
+        private IRepository<PostModel> postRepository;
+        private IRepository<ApplicationUserModel> userRepository;
 
-        public Repository<TopicModel> TopicRepository
+        public IRepository<TopicModel> TopicRepository
         {
             get
             {
@@ -28,7 +28,7 @@ namespace NewsFeeds.Data.Generic
             }
         }
 
-        public Repository<SubscriptionModel> SubscriptionRepository
+        public IRepository<SubscriptionModel> SubscriptionRepository
         {
             get
             {
@@ -41,7 +41,7 @@ namespace NewsFeeds.Data.Generic
             }
         }
 
-        public Repository<PostModel> PostRepository
+        public IRepository<PostModel> PostRepository
         {
             get
             {
@@ -53,7 +53,7 @@ namespace NewsFeeds.Data.Generic
             }
         }
 
-        public Repository<ApplicationUserModel> UserRepository
+        public IRepository<ApplicationUserModel> UserRepository
         {
             get
             {

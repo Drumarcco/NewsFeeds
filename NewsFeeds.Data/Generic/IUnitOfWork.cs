@@ -7,10 +7,10 @@ namespace NewsFeeds.Data.Generic
 {
     public interface IUnitOfWork
     {
-        Repository<TopicModel> TopicRepository { get; }
-        Repository<SubscriptionModel> SubscriptionRepository { get; }
-        Repository<ApplicationUserModel> UserRepository { get; }
-        Repository<PostModel> PostRepository { get; }
+        IRepository<TopicModel> TopicRepository { get; }
+        IRepository<SubscriptionModel> SubscriptionRepository { get; }
+        IRepository<ApplicationUserModel> UserRepository { get; }
+        IRepository<PostModel> PostRepository { get; }
         void Save();
     }
 }
