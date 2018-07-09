@@ -31,7 +31,7 @@ namespace NewsFeeds.Web.Controllers
 
         [Route("{name}")]
         [HandleError(ExceptionType = typeof(TopicNotFoundException), View = "NotFound")]
-        public ActionResult Details(string name)
+        public ActionResult Details(string name, string query)
         {
             TopicDisplayViewModel topic;
 
@@ -39,11 +39,11 @@ namespace NewsFeeds.Web.Controllers
             if (Request.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
-                topic = _topicsRepository.GetTopicWithUserContext(userId, name);
+                topic = _topicsRepository.GetTopicWithUserContext(userId, name, query);
             }
             else
             {
-                topic = _topicsRepository.GetTopic(name);
+                topic = _topicsRepository.GetTopic(name, query);
             }
 
             return View(topic);

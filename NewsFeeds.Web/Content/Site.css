@@ -55,6 +55,14 @@ textarea {
     color: #aaa;
 }
 
+.search-bar {
+    margin-top: 20px;
+}
+
+.search-bar input[type="text"] {
+    max-width: none;
+}
+
 /* POSTS */
 .post {
     border: 1px solid #ddd;
@@ -63,14 +71,13 @@ textarea {
     margin-bottom: 14px;
 }
 
-.post .title {
+.post .header {
     font-size: 16px;
-    font-weight: bold;
-    color: #555;
 }
 
-.post .author {
-    color: #999;
+.post .title {
+    font-weight: bold;
+    color: #555;
 }
 
 .post hr {
@@ -84,4 +91,5 @@ textarea {
 .post .footer {
     text-align: right;
     color: #888;
+    font-size: 11px;
 }

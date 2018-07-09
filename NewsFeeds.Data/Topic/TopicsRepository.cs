@@ -10,7 +10,7 @@ namespace NewsFeeds.Data.Topic
 {
     public class TopicsRepository : ITopicsRepository
     {
-        public TopicDisplayViewModel GetTopic(string topicName)
+        public TopicDisplayViewModel GetTopic(string topicName, string queryPosts)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -28,15 +28,7 @@ namespace NewsFeeds.Data.Topic
                 return new TopicDisplayViewModel
                 {
                     Name = topic.Name,
-                    Posts = topic.Posts.Select(p => new PostDisplayViewModel
-                    {
-                        Content = p.Content,
-                        Date = p.PostedAt.ToShortDateString(),
-                        Time = p.PostedAt.ToShortTimeString(),
-                        Title = p.Title,
-                        TopicName = topicName,
-                        AuthorUsername = p.Author.UserName
-                    }).ToList(),
+                    Posts = MapTopicPosts(topic).Where(GetPostsQueryPredicate(queryPosts)).ToList(),
                     SubscriptionsCount = topic.Subscriptions.Count
                 };
             }
@@ -63,15 +55,7 @@ namespace NewsFeeds.Data.Topic
                         {
                             Name = topic.Name,
                             SubscriptionsCount = topic.Subscriptions.Count,
-                            Posts = topic.Posts.Select(p => new PostDisplayViewModel
-                            {
-                                Content = p.Content,
-                                Date = p.PostedAt.ToShortDateString(),
-                                Time = p.PostedAt.ToShortTimeString(),
-                                Title = p.Title,
-                                TopicName = topic.Name,
-                                AuthorUsername = p.Author.UserName
-                            }).ToList()
+                            Posts = MapTopicPosts(topic)
                         };
                         topicsDisplay.Add(topicDisplay);
                     }
@@ -104,15 +88,7 @@ namespace NewsFeeds.Data.Topic
                         var userTopic = new UserTopicViewModel
                         {
                             Name = topic.Name,
-                            Posts = topic.Posts.Select(p => new PostDisplayViewModel
-                            {
-                                Content = p.Content,
-                                Date = p.PostedAt.ToShortDateString(),
-                                Time = p.PostedAt.ToShortTimeString(),
-                                Title = p.Title,
-                                TopicName = topic.Name,
-                                AuthorUsername = p.Author.UserName
-                            }).ToList(),
+                            Posts = MapTopicPosts(topic),
                             SubscriptionsCount = topic.Subscriptions.Count,
                             IsSubscribed = topic.Subscriptions.Any(s => s.UserId == userId)
                         };
@@ -127,7 +103,7 @@ namespace NewsFeeds.Data.Topic
             }
         }
 
-        public UserTopicViewModel GetTopicWithUserContext(string userId, string topicName)
+        public UserTopicViewModel GetTopicWithUserContext(string userId, string topicName, string queryPosts)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -145,19 +121,37 @@ namespace NewsFeeds.Data.Topic
                 return new UserTopicViewModel
                 {
                     Name = topic.Name,
-                    Posts = topic.Posts.Select(p => new PostDisplayViewModel
-                    {
-                        Content = p.Content,
-                        Date = p.PostedAt.ToShortDateString(),
-                        Time = p.PostedAt.ToShortTimeString(),
-                        Title = p.Title,
-                        TopicName = topicName,
-                        AuthorUsername = p.Author.UserName
-                    }).ToList(),
+                    Posts = MapTopicPosts(topic).Where(GetPostsQueryPredicate(queryPosts)).ToList(),
                     SubscriptionsCount = topic.Subscriptions.Count,
                     IsSubscribed = topic.Subscriptions.Any(s => s.UserId == userId)
                 };
             }
+        }
+
+        private System.Func<PostDisplayViewModel, bool> GetPostsQueryPredicate(string query = "")
+        {
+            if (query == null)
+            {
+                query = "";
+            }
+
+            var queryLowercase = query.ToLower();
+            return p => p.Title.ToLower().Contains(queryLowercase)
+                || p.Content.ToLower().Contains(queryLowercase)
+                || p.AuthorUsername.ToLower().Contains(queryLowercase);
+        }
+
+        private List<PostDisplayViewModel> MapTopicPosts(TopicModel topic)
+        {
+            return topic.Posts.Select(p => new PostDisplayViewModel
+            {
+                Content = p.Content,
+                Date = p.PostedAt.ToShortDateString(),
+                Time = p.PostedAt.ToShortTimeString(),
+                Title = p.Title,
+                TopicName = topic.Name,
+                AuthorUsername = p.Author.UserName
+            }).ToList();
         }
     }
 }
