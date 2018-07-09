@@ -28,6 +28,10 @@ body {
     background-color: #EEE;
 }
 
+.jumbotron {
+    background-color: #DDD;
+}
+
 /* TOPICS */
 .topic {
     border: 1px solid #DDD;
