@@ -1,28 +1,30 @@
-﻿using NewsFeeds.Data.Topic;
+﻿using NewsFeeds.Data.Generic;
+using NewsFeeds.Entities.Topic.ViewModels;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace NewsFeeds.Web.Controllers
 {
     public class HomeController : Controller
     {
-        ITopicsRepository _topicsRepository;
+        IUnitOfWork uow;
 
-
-        public HomeController(ITopicsRepository topicsRepository)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _topicsRepository = topicsRepository;
+            uow = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var topics = _topicsRepository.GetTopics();
+            var topics = uow.TopicRepository.Get().ToList();
+
             if (Request.IsAuthenticated)
             {
                 return RedirectToAction("Index", "NewsFeed");
             }
             else
             {
-                return View(topics);
+                return View(topics.Select(t => TopicMapper.Map(t)));
             }
         }
     }

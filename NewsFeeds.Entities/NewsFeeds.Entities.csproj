@@ -87,7 +87,8 @@
   <ItemGroup>
     <Compile Include="ApplicationUser\ApplicationUserModel.cs" />
     <Compile Include="Post.ViewModels\PostDisplayViewModel.cs" />
-    <Compile Include="Topic.ViewModels\TopicDetailsViewModel.cs" />
+    <Compile Include="Post.ViewModels\PostMapper.cs" />
+    <Compile Include="Topic.ViewModels\TopicMapper.cs" />
     <Compile Include="Topic.ViewModels\UserTopicViewModel.cs" />
     <Compile Include="Post\PostModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
