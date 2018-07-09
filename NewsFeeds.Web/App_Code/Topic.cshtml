@@ -2,12 +2,10 @@
 @using System.Web.Mvc
 
 @helper TopicHome(List<TopicDisplayViewModel> vm, UrlHelper url) { 
-    <div class="container-fluid">
-        <div class="row">
-            @foreach (var topic in  vm) {
-                @SingleTopic(topic, url)
-            }
-        </div>
+    <div class="row">
+        @foreach (var topic in  vm) {
+            @SingleTopic(topic, url)
+        }
     </div>
 }
 
@@ -16,7 +14,9 @@
         <div class="topic">
             <div class="header">
                 <div class="title">
-                    @vm.Name
+                    <a href="@url.Action("Details", "Topic", new { name = vm.Name })">
+                        @vm.Name
+                    </a>
                 </div>
                 <div class="actions">
                     @if (vm is UserTopicViewModel)
@@ -44,8 +44,8 @@
             </div>
             <div class="meta">
                 <span class="subscriptions">
-                    @vm.SubscribersCount
-                    @if (vm.SubscribersCount > 1 || vm.SubscribersCount == 0)
+                    @vm.SubscriptionsCount
+                    @if (vm.SubscriptionsCount > 1 || vm.SubscriptionsCount == 0)
                     {
                         <span>Subscribers</span>
                     }
@@ -55,8 +55,8 @@
                     }
                 </span>
                 <span class="posts">
-                    @vm.PostsCount
-                    @if (vm.PostsCount > 1 || vm.PostsCount == 0)
+                    @vm.Posts.Count
+                    @if (vm.Posts.Count > 1 || vm.Posts.Count == 0)
                     {
                         <span>Posts</span>
                     }

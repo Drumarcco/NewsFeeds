@@ -2,6 +2,7 @@
 using NewsFeeds.Data.Exceptions;
 using NewsFeeds.Data.Subscription;
 using NewsFeeds.Data.Topic;
+using NewsFeeds.Entities.Topic.ViewModels;
 using System.Web.Mvc;
 
 namespace NewsFeeds.Web.Controllers
@@ -26,6 +27,26 @@ namespace NewsFeeds.Web.Controllers
             var topicsWithUserContext = _topicsRepository.GetTopicsWithUserContext(userId);
 
             return View(topicsWithUserContext);
+        }
+
+        [Route("{name}")]
+        [HandleError(ExceptionType = typeof(TopicNotFoundException), View = "NotFound")]
+        public ActionResult Details(string name)
+        {
+            TopicDisplayViewModel topic;
+
+
+            if (Request.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                topic = _topicsRepository.GetTopicWithUserContext(userId, name);
+            }
+            else
+            {
+                topic = _topicsRepository.GetTopic(name);
+            }
+
+            return View(topic);
         }
 
         // POST: Topic/{name}/subscription

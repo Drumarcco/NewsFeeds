@@ -19,6 +19,11 @@ namespace NewsFeeds.Data.Tests.Topic
             _context.Add(topic);
         }
 
+        public TopicDisplayViewModel GetTopic(string topicName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<TopicDisplayViewModel> GetTopics()
         {
             var topicsDisplays = new List<TopicDisplayViewModel>();
@@ -37,6 +42,11 @@ namespace NewsFeeds.Data.Tests.Topic
         }
 
         public List<UserTopicViewModel> GetTopicsWithUserContext(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserTopicViewModel GetTopicWithUserContext(string userId, string topicName)
         {
             throw new System.NotImplementedException();
         }

@@ -1,4 +1,5 @@
 ﻿using NewsFeeds.Data.Context;
+using NewsFeeds.Entities.Post.ViewModels;
 using NewsFeeds.Entities.Topic;
 using NewsFeeds.Entities.Topic.ViewModels;
 using System.Collections.Generic;
@@ -9,6 +10,38 @@ namespace NewsFeeds.Data.Topic
 {
     public class TopicsRepository : ITopicsRepository
     {
+        public TopicDisplayViewModel GetTopic(string topicName)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var topic = context.Topics
+                     .Include(t => t.Subscriptions)
+                     .Include(t => t.Posts)
+                     .Include(t => t.Posts.Select(p => p.Author))
+                     .FirstOrDefault(t => t.Name.ToLower() == topicName.ToLower());
+
+                if (topic == null)
+                {
+                    throw new TopicNotFoundException(topicName);
+                }
+
+                return new TopicDisplayViewModel
+                {
+                    Name = topic.Name,
+                    Posts = topic.Posts.Select(p => new PostDisplayViewModel
+                    {
+                        Content = p.Content,
+                        Date = p.PostedAt.ToShortDateString(),
+                        Time = p.PostedAt.ToShortTimeString(),
+                        Title = p.Title,
+                        TopicName = topicName,
+                        AuthorUsername = p.Author.UserName
+                    }).ToList(),
+                    SubscriptionsCount = topic.Subscriptions.Count
+                };
+            }
+        }
+
         public List<TopicDisplayViewModel> GetTopics()
         {
             using (var context = new ApplicationDbContext())
@@ -17,6 +50,7 @@ namespace NewsFeeds.Data.Topic
                 topics = context.Topics
                     .Include(t => t.Subscriptions)
                     .Include(t => t.Posts)
+                    .Include(t => t.Posts.Select(p => p.Author))
                     .ToList();
 
                 if (topics != null)
@@ -28,8 +62,16 @@ namespace NewsFeeds.Data.Topic
                         var topicDisplay = new TopicDisplayViewModel
                         {
                             Name = topic.Name,
-                            SubscribersCount = topic.Subscriptions.Count,
-                            PostsCount = topic.Posts.Count
+                            SubscriptionsCount = topic.Subscriptions.Count,
+                            Posts = topic.Posts.Select(p => new PostDisplayViewModel
+                            {
+                                Content = p.Content,
+                                Date = p.PostedAt.ToShortDateString(),
+                                Time = p.PostedAt.ToShortTimeString(),
+                                Title = p.Title,
+                                TopicName = topic.Name,
+                                AuthorUsername = p.Author.UserName
+                            }).ToList()
                         };
                         topicsDisplay.Add(topicDisplay);
                     }
@@ -50,6 +92,7 @@ namespace NewsFeeds.Data.Topic
                 topics = context.Topics
                     .Include(t => t.Subscriptions)
                     .Include(t => t.Posts)
+                    .Include(t => t.Posts.Select(p => p.Author))
                     .ToList();
 
                 if (topics != null)
@@ -61,8 +104,16 @@ namespace NewsFeeds.Data.Topic
                         var userTopic = new UserTopicViewModel
                         {
                             Name = topic.Name,
-                            PostsCount = topic.Posts.Count,
-                            SubscribersCount = topic.Subscriptions.Count,
+                            Posts = topic.Posts.Select(p => new PostDisplayViewModel
+                            {
+                                Content = p.Content,
+                                Date = p.PostedAt.ToShortDateString(),
+                                Time = p.PostedAt.ToShortTimeString(),
+                                Title = p.Title,
+                                TopicName = topic.Name,
+                                AuthorUsername = p.Author.UserName
+                            }).ToList(),
+                            SubscriptionsCount = topic.Subscriptions.Count,
                             IsSubscribed = topic.Subscriptions.Any(s => s.UserId == userId)
                         };
 
@@ -73,6 +124,39 @@ namespace NewsFeeds.Data.Topic
                 }
 
                 return null;
+            }
+        }
+
+        public UserTopicViewModel GetTopicWithUserContext(string userId, string topicName)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var topic = context.Topics
+                    .Include(t => t.Subscriptions)
+                    .Include(t => t.Posts)
+                    .Include(t => t.Posts.Select(p => p.Author))
+                    .FirstOrDefault(t => t.Name.ToLower() == topicName.ToLower());
+
+                if (topic == null)
+                {
+                    throw new TopicNotFoundException(topicName);
+                }
+
+                return new UserTopicViewModel
+                {
+                    Name = topic.Name,
+                    Posts = topic.Posts.Select(p => new PostDisplayViewModel
+                    {
+                        Content = p.Content,
+                        Date = p.PostedAt.ToShortDateString(),
+                        Time = p.PostedAt.ToShortTimeString(),
+                        Title = p.Title,
+                        TopicName = topicName,
+                        AuthorUsername = p.Author.UserName
+                    }).ToList(),
+                    SubscriptionsCount = topic.Subscriptions.Count,
+                    IsSubscribed = topic.Subscriptions.Any(s => s.UserId == userId)
+                };
             }
         }
     }

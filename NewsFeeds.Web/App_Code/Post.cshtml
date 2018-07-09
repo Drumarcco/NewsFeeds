@@ -1,0 +1,33 @@
+﻿@using NewsFeeds.Entities.Post.ViewModels;
+
+@helper PostList(List<PostDisplayViewModel> posts)
+{
+    foreach (var post in posts)
+    {
+        @SinglePost(post);
+
+    }
+}
+
+@helper SinglePost(PostDisplayViewModel post)
+{
+    <div class="col-xs-12">
+        <div class="post">
+            <div class="header">
+                <span class="title">
+                    @post.Title
+                </span>
+                <span class="author">
+                    by @post.AuthorUsername
+                </span>
+            </div>
+            <hr />
+            <div class="body">
+                @post.Content
+            </div>
+            <div class="footer">
+                <span>@post.Time @post.Date</span>
+            </div>
+        </div>
+    </div>
+}

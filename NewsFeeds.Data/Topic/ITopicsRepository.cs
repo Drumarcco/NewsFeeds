@@ -7,5 +7,7 @@ namespace NewsFeeds.Data.Topic
     {
         List<TopicDisplayViewModel> GetTopics();
         List<UserTopicViewModel> GetTopicsWithUserContext(string userId);
+        TopicDisplayViewModel GetTopic(string topicName);
+        UserTopicViewModel GetTopicWithUserContext(string userId, string topicName);
     }
 }

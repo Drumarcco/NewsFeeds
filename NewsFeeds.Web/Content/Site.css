@@ -32,7 +32,6 @@ textarea {
 }
 
 .topic:hover {
-    cursor: pointer;
     background-color: #EEE;
 }
 
@@ -49,10 +48,6 @@ textarea {
 .topic .header .actions {
     flex: 1;
     text-align: right;
-}
-
-.topic .title:before {
-    content: "/";
 }
 
 .topic .meta {
@@ -88,4 +83,5 @@ textarea {
 
 .post .footer {
     text-align: right;
+    color: #888;
 }
