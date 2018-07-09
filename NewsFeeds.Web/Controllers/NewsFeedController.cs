@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNet.Identity;
-using NewsFeeds.Data.Post;
+using NewsFeeds.Data.Generic;
+using NewsFeeds.Entities.Post.ViewModels;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace NewsFeeds.Web.Controllers
 {
     public class NewsFeedController : Controller
     {
-        IPostsRepository _postsRepository;
+        IUnitOfWork uow;
 
-        public NewsFeedController(IPostsRepository postsRepository)
+        public NewsFeedController(IUnitOfWork unitOfWork)
         {
-            _postsRepository = postsRepository;
+            this.uow = unitOfWork;
         }
 
         // GET: NewsFeed
@@ -18,7 +20,15 @@ namespace NewsFeeds.Web.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var posts = _postsRepository.GetUserNewsFeed(userId);
+            var posts = uow.PostRepository
+                .Get(
+                    p => p.Topic.Subscriptions.Any(s => s.UserId == userId),
+                    includeProperties: "Author",
+                    orderBy: p => p.OrderByDescending(post => post.PostedAt)
+                )
+                .Select(p => PostMapper.Map(p))
+                .ToList();
+
             return View(posts);
         }
     }

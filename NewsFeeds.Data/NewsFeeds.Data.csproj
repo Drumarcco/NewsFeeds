@@ -85,20 +85,18 @@
   <ItemGroup>
     <Compile Include="Context\ApplicationDbContext.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Generic\IRepository.cs" />
+    <Compile Include="Generic\IUnitOfWork.cs" />
+    <Compile Include="Generic\Repository.cs" />
+    <Compile Include="Generic\UnitOfWork.cs" />
     <Compile Include="Migrations\201807062317421_InitialMigration.cs" />
     <Compile Include="Migrations\201807062317421_InitialMigration.Designer.cs">
       <DependentUpon>201807062317421_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Post\IPostsRepository.cs" />
-    <Compile Include="Post\PostsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Subscription\ISubscriptionsRepository.cs" />
     <Compile Include="Subscription\SubscriptionNotFoundException.cs" />
-    <Compile Include="Subscription\SubscriptionsRepository.cs" />
-    <Compile Include="Topic\ITopicsRepository.cs" />
     <Compile Include="Topic\TopicNotFoundException.cs" />
-    <Compile Include="Topic\TopicsRepository.cs" />
     <Compile Include="User\UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>

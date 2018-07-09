@@ -26,6 +26,8 @@ namespace NewsFeeds.Data.Migrations
             context.Topics.AddOrUpdate(new TopicModel { Name = "cats" });
             context.Topics.AddOrUpdate(new TopicModel { Name = "music" });
             context.Topics.AddOrUpdate(new TopicModel { Name = "food" });
+            context.Topics.AddOrUpdate(new TopicModel { Name = "tourism" });
+            context.Topics.AddOrUpdate(new TopicModel { Name = "tech" });
 
             userManager.Create(new ApplicationUserModel { UserName = "defaultuser@mail.com", Email = "defaultuser@mail.com" }, "defaultuser");
             userManager.Create(new ApplicationUserModel { UserName = "johndoe@mail.com", Email = "johndoe@mail.com" }, "johndoe");
@@ -79,6 +81,33 @@ namespace NewsFeeds.Data.Migrations
                     PostedAt = DateTime.Now,
                     Title = "Mexican food",
                     Content = "I've come to the conclusion that Mexican good mexican food consists primarily of corn tortillas, cheese and amazing salsas"
+                });
+
+                context.Posts.AddOrUpdate(new PostModel
+                {
+                    AuthorId = user.Id,
+                    TopicName = "tourism",
+                    PostedAt = DateTime.Now,
+                    Title = "Beaches are fun",
+                    Content = "There's nothing like taking a sun bath by the sea side"
+                });
+
+                context.Posts.AddOrUpdate(new PostModel
+                {
+                    AuthorId = janedoe.Id,
+                    TopicName = "dogs",
+                    PostedAt = new DateTime(2017, 12, 12),
+                    Title = "Dogs can be annoying sometimes too",
+                    Content = "Chihuahuas can be really really noisy!"
+                });
+
+                context.Posts.AddOrUpdate(new PostModel
+                {
+                    AuthorId = johndoe.Id,
+                    TopicName = "music",
+                    PostedAt = new DateTime(2016, 04, 12),
+                    Title = "Orchestral music is relaxing",
+                    Content = "Violins, Flutes, Cello, some soft drumming in the background, it's incredible!"
                 });
             }
 

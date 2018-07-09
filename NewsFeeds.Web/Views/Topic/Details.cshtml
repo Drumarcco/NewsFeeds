@@ -4,17 +4,20 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-4">
-            <h2>/@Model.Name</h2>
+    <div class="row topic-details-header">
+        <div class="col-xs-3">
+            <h2 class="visible-lg-inline">/@Model.Name</h2>
+            <span class="visible-lg-inline topic-details-actions">
+                @Topic.SubscriptionButtons(Model, Url)
+            </span>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-offset-3 col-xs-6">
             <form method="get">
                 <div class="input-group search-bar">
 
                     <input type="text" name="query" class="form-control" placeholder="Search for..." value="@Request.QueryString.Get("query")">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn btn-default" type="submit">Search</button>
                     </span>
                 </div>
             </form>
@@ -35,9 +38,16 @@
             <h4 class="text-center">No results for "@Request.QueryString.Get("query")"</h4>
         } else
         {
-            <h3>Hello</h3>
+            <h4 class="text-center">Topic has no posts yet</h4>
         }
     }
 </div>
 
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bindSubscriptionButtonEvents();
+        });
+    </script>    
+}
 
